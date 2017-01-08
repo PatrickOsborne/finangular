@@ -1,0 +1,40 @@
+<configuration debug='true' scan='true' scanPeriod='10 seconds'>
+
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date{dd MMM HH:mm:ss.SSS} %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name='FILE' class='ch.qos.logback.core.rolling.RollingFileAppender'>
+		<file>logs/server.log</file>
+
+		<rollingPolicy class='ch.qos.logback.core.rolling.FixedWindowRollingPolicy'>
+			<fileNamePattern>logs/server.%i.log</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>13</maxIndex>
+		</rollingPolicy>
+
+		<triggeringPolicy class='ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy'>
+			<maxFileSize>10MB</maxFileSize>
+		</triggeringPolicy>
+
+		<encoder>
+			<pattern>%date{dd MMM HH:mm:ss.SSS} %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name='com.ozzysoft.finangular' level='DEBUG'/>
+
+	<logger name='com.twitter' level='INFO'/>
+	<logger name='com.twitter.finatra' level='INFO'/>
+
+	<root>
+		<level value='INFO'/>
+
+		<appender-ref ref='FILE'/>
+		<appender-ref ref='STDOUT'/>
+	</root>
+
+</configuration>
+

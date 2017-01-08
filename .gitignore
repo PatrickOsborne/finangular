@@ -1,0 +1,11 @@
+/target
+/.project
+/.idea
+/logs
+/tmp
+/out
+
+*.log
+*.iml
+
+
