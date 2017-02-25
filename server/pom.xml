@@ -38,8 +38,6 @@
         </dependency>
     </dependencies>
 
-
-
     <build>
         <plugins>
             <plugin>
@@ -50,6 +48,7 @@
                     <descriptors>
                         <descriptor>src/assembly/assembly.xml</descriptor>
                     </descriptors>
+                    <finalName>finangular-${pom.version}</finalName>
                 </configuration>
 
                 <executions>
