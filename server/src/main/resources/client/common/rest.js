@@ -96,7 +96,7 @@ restModule.factory( 'restCommon', function( restUtils ) {
         {
             url += '?name=' + name;
         }
-        console.log( 'greeting: ' + name + ', url: ' + url );
+        console.log( 'greeting: name: (' + name + '), url: (' + url + ')');
         return restUtils.doGet( url, successCallback, errorCallback );
     }
 

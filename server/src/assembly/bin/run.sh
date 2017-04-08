@@ -16,6 +16,8 @@ PRGDIR=`dirname "$PRG"`
 
 [ -z "$FANG_HOME" ] && FANG_HOME=`cd "$PRGDIR/.." >/dev/null; pwd`
 
+[ -z "$DEV_HOME" ] && DEV_HOME=`cd "$PRGDIR/../../../../" >/dev/null; pwd`
+
 [ -z "$LOG_DIR" ] && LOG_DIR="$FANG_HOME/logs"
 
 if [ "$1" = "jpda" ] ; then
@@ -43,4 +45,9 @@ SERVER_OPTS=""
 JAVA_OPTS="$JAVA_OPTS $JAVA_MEM_OPTS $SERVER_JVM_OPTS"
 
 pushd $FANG_HOME
-exec java $JAVA_OPTS $SERVER_OPTS -cp "$FANG_HOME/config/:$FANG_HOME/lib/*" $MAIN_CLASS -local.doc.root=/home/yampa2/work/finangular/server/src/main/resources/client $@
+if [ "$DEV_MODE" = "true" ] ; then
+    exec java $JAVA_OPTS $SERVER_OPTS -cp "$FANG_HOME/config/:$FANG_HOME/lib/*" $MAIN_CLASS -local.doc.root=$DEV_HOME/src/main/resources/client $@
+else
+    exec java $JAVA_OPTS $SERVER_OPTS -cp "$FANG_HOME/config/:$FANG_HOME/lib/*" $MAIN_CLASS -doc.root=/client $@
+fi
+
