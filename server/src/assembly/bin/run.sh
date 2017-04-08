@@ -43,4 +43,4 @@ SERVER_OPTS=""
 JAVA_OPTS="$JAVA_OPTS $JAVA_MEM_OPTS $SERVER_JVM_OPTS"
 
 pushd $FANG_HOME
-exec java $JAVA_OPTS $SERVER_OPTS -cp "$FANG_HOME/config/:$FANG_HOME/lib/*" $MAIN_CLASS $@
+exec java $JAVA_OPTS $SERVER_OPTS -cp "$FANG_HOME/config/:$FANG_HOME/lib/*" $MAIN_CLASS -local.doc.root=/home/yampa2/work/finangular/server/src/main/resources/client $@

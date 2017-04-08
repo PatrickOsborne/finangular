@@ -24,10 +24,10 @@
 		</encoder>
 	</appender>
 
-	<logger name='com.ozzysoft.finangular' level='DEBUG'/>
+	<logger name='org.ozzysoft.finangular' level='DEBUG'/>
 
 	<logger name='com.twitter' level='INFO'/>
-	<logger name='com.twitter.finatra' level='INFO'/>
+	<logger name='com.twitter.finatra' level='DEBUG'/>
 
 	<root>
 		<level value='INFO'/>

@@ -1,6 +1,7 @@
 package org.ozzysoft.finangular.server.http
 
 import com.twitter.finatra.http.HttpServer
+import com.twitter.finatra.http.filters.CommonFilters
 import com.twitter.finatra.http.routing.HttpRouter
 import com.twitter.inject.TwitterModule
 
@@ -14,7 +15,9 @@ class Server extends HttpServer {
 
   override def configureHttp(router: HttpRouter) {
     logger.info("configure")
+    router.filter[CommonFilters]
     router.add[AngularController]
+    router.add[RestController]
   }
 }
 

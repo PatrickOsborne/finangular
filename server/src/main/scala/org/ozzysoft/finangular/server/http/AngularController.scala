@@ -7,7 +7,18 @@ class AngularController extends Controller {
 
   logger.info("created")
 
-  get("/ping") { request: Request =>
+  get("/client/lib/:*") { request: Request =>
+    response.ok.file("/lib/" + request.params("*"))
+  }
+
+  get("/client/:*") { request: Request =>
+    response.ok.fileOrIndex(request.params("*"), "/index.html")
+  }
+
+  // temporary
+
+  get("/ping:*") { request: Request =>
+    logger.debug(s"ping (${request.method}: ${request.path}: ${request.remoteAddress})")
     "pong"
   }
 
