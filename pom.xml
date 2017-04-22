@@ -25,13 +25,13 @@
         <slf4j.version>1.7.22</slf4j.version>
         <grizzled.version>1.3.0</grizzled.version>
         <logback.version>1.1.8</logback.version>
-        <scalatest.version>3.0.1</scalatest.version>
 
+        <scalatest.version>3.0.2</scalatest.version>
         <org.mockito.version>2.5.5</org.mockito.version>
 
         <!-- plugins -->
         <compiler.plugin.version>3.6.0</compiler.plugin.version>
-        <compiler.scala.plugin.version>3.2.1</compiler.scala.plugin.version>
+        <compiler.scala.plugin.version>3.2.2</compiler.scala.plugin.version>
         <surefire.plugin.version>2.9</surefire.plugin.version>
     </properties>
 
@@ -85,7 +85,7 @@
 
             <dependency>
                 <groupId>com.twitter</groupId>
-                <artifactId>finatra-http_2.11</artifactId>
+                <artifactId>finatra-http_${scala.short.version}</artifactId>
                 <scope>test</scope>
                 <type>test-jar</type>
                 <version>${finatra.version}</version>
@@ -112,6 +112,23 @@
                     <groupId>net.alchim31.maven</groupId>
                     <artifactId>scala-maven-plugin</artifactId>
                     <version>${compiler.scala.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>scala-compile-first</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>add-source</goal>
+                                <goal>compile</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>scala-test-compile</id>
+                            <phase>process-test-resources</phase>
+                            <goals>
+                                <goal>testCompile</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
@@ -129,10 +146,41 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${surefire.plugin.version}</version>
                     <configuration>
-                        <excludes>
-                            <exclude>**/Test*.java</exclude>
-                        </excludes>
+                        <skipTests>true</skipTests>
                     </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.scalatest</groupId>
+                    <artifactId>scalatest-maven-plugin</artifactId>
+                    <version>1.0</version>
+                    <configuration>
+                        <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+                        <junitxml>.</junitxml>
+                        <filereports>WDF TestSuite.txt</filereports>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>test</id>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                            <configuration>
+                                <suffixes>UnitTest</suffixes>
+                            </configuration>
+                        </execution>
+
+                        <execution>
+                            <id>int-test</id>
+                            <phase>integration-test</phase>
+                            <goals>
+                                <goal>test</goal>
+                            </goals>
+                            <configuration>
+                                <suffixes>FuncTest|IntTest</suffixes>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
@@ -140,31 +188,11 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${release.plugin.version}</version>
                 </plugin>
+
             </plugins>
         </pluginManagement>
 
         <plugins>
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>scala-compile-first</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>scala-test-compile</id>
-                        <phase>process-test-resources</phase>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 

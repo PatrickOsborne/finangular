@@ -15,6 +15,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.twitter</groupId>
             <artifactId>finatra-http_${scala.short.version}</artifactId>
         </dependency>
@@ -31,6 +36,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.scalatest</groupId>
+            <artifactId>scalatest_${scala.short.version}</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.twitter</groupId>
             <artifactId>finatra-http_2.11</artifactId>
             <scope>test</scope>
@@ -40,6 +51,17 @@
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest-maven-plugin</artifactId>
+            </plugin>
+            
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.0.0</version>
@@ -48,7 +70,7 @@
                     <descriptors>
                         <descriptor>src/assembly/assembly.xml</descriptor>
                     </descriptors>
-                    <finalName>finangular-${pom.version}</finalName>
+                    <finalName>finangular-${project.version}</finalName>
                 </configuration>
 
                 <executions>
