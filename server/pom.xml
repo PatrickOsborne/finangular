@@ -51,7 +51,6 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
@@ -62,6 +61,10 @@
                 <artifactId>scalatest-maven-plugin</artifactId>
             </plugin>
             
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.0.0</version>

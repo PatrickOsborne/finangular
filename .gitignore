@@ -1,11 +1,13 @@
 /target
 /.project
 /.idea
-/logs
-/tmp
 /out
-
-*.log
 *.iml
 
+/logs
+*.log
+
+/tmp
+
+env.sh
 

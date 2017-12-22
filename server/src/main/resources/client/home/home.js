@@ -7,7 +7,8 @@ appModule.controller('Home', function ($scope, $location, restCommon) {
         console.log('greeting success');
         console.log(result);
         $scope.greeting = result.data.content;
-        console.log('greeting blap: ' + $scope.greeting);
+        $scope.greetingCount = result.data.count;
+        console.log('greeting: ' + '(' + $scope.greetingCount + ') ' + $scope.greeting);
     }
 
     function handleGreetingError(status, data) {

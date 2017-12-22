@@ -1,16 +1,20 @@
 package org.ozzysoft.finangular.server.http
 
+import java.util.concurrent.atomic.AtomicInteger
+
 import com.twitter.finagle.http.Request
 import com.twitter.finatra.http.Controller
 import com.twitter.finatra.request.QueryParam
 
 case class GreetingRequest(@QueryParam name: Option[String], request: Request)
 
-case class Greeting(content: String)
+case class Greeting(content: String, count: Int)
 
 case class Version(version: String, buildTimestamp: String, commit: String)
 
 class RestController extends Controller {
+
+  val counter = new AtomicInteger()
 
   logger.info("created")
 
@@ -19,7 +23,8 @@ class RestController extends Controller {
   }
 
   get("/rest/greeting") { request: GreetingRequest =>
-    Greeting(s"Hola Mi Amigo ${request.name.getOrElse("")}")
+    val count = counter.incrementAndGet()
+    Greeting(s"Hola Mi Amigo ${request.name.getOrElse("")}", count)
   }
 
 }

@@ -1,218 +1,289 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.ozzysoft.finangular</groupId>
-    <artifactId>parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
+  <groupId>org.ozzysoft.finangular</groupId>
+  <artifactId>parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-    <name>Finatra and Angular</name>
-    <description>Finatra and Angular</description>
+  <name>Finatra and Angular</name>
+  <description>Finatra and Angular</description>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+    <docker.image.prefix>ozzysoft</docker.image.prefix>
 
-        <scala.version>2.11.8</scala.version>
-        <scala.short.version>2.11</scala.short.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
 
-        <!-- Common Dependencies -->
-        <finatra.version>2.7.0</finatra.version>
-        <netty.version>4.1.6.Final</netty.version>
-        <slf4j.version>1.7.22</slf4j.version>
-        <grizzled.version>1.3.0</grizzled.version>
-        <logback.version>1.1.8</logback.version>
+    <scala.version>2.11.8</scala.version>
+    <scala.short.version>2.11</scala.short.version>
 
-        <scalatest.version>3.0.2</scalatest.version>
-        <org.mockito.version>2.5.5</org.mockito.version>
+    <!-- Common Dependencies -->
+    <finatra.version>2.7.0</finatra.version>
+    <netty.version>4.1.6.Final</netty.version>
+    <slf4j.version>1.7.25</slf4j.version>
+    <grizzled.version>1.3.2</grizzled.version>
+    <logback.version>1.2.3</logback.version>
+    <guice.version>4.0</guice.version>
 
-        <!-- plugins -->
-        <compiler.plugin.version>3.6.0</compiler.plugin.version>
-        <compiler.scala.plugin.version>3.2.2</compiler.scala.plugin.version>
-        <surefire.plugin.version>2.9</surefire.plugin.version>
-    </properties>
+    <scalatest.version>3.0.2</scalatest.version>
+    <org.mockito.version>2.5.5</org.mockito.version>
 
-    <modules>
-        <module>server</module>
-    </modules>
+    <!-- plugins -->
+    <compiler.plugin.version>3.6.0</compiler.plugin.version>
+    <compiler.scala.plugin.version>3.2.2</compiler.scala.plugin.version>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.scala-lang</groupId>
-                <artifactId>scala-library</artifactId>
-                <version>${scala.version}</version>
-            </dependency>
+    <resources.plugin.version>2.4</resources.plugin.version>
+    <git.commit.plugin.version>2.2.4</git.commit.plugin.version>
 
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
+    <surefire.plugin.version>2.9</surefire.plugin.version>
+    <spotify.docker.plugin.version>1.0.0</spotify.docker.plugin.version>
 
-            <dependency>
-                <groupId>org.clapper</groupId>
-                <artifactId>grizzled-slf4j_${scala.short.version}</artifactId>
-                <version>${grizzled.version}</version>
-            </dependency>
+    <maven.dependency.plugin.version>3.0.0</maven.dependency.plugin.version>
+    <maven.release.plugin.version>2.5.3</maven.release.plugin.version>
+    <maven.deploy.plugin.version>2.8.2</maven.deploy.plugin.version>
+  </properties>
 
-            <dependency>
-                <groupId>com.twitter</groupId>
-                <artifactId>finatra-http_${scala.short.version}</artifactId>
-                <version>${finatra.version}</version>
-            </dependency>
+  <scm>
+    <developerConnection>scm:git@github.com:PatrickOsborne/finangular.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
+  <modules>
+    <module>server</module>
+  </modules>
 
-            <dependency>
-                <groupId>org.scalatest</groupId>
-                <artifactId>scalatest_${scala.short.version}</artifactId>
-                <version>${scalatest.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${org.mockito.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.twitter</groupId>
-                <artifactId>finatra-http_${scala.short.version}</artifactId>
-                <scope>test</scope>
-                <type>test-jar</type>
-                <version>${finatra.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
+  <dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>org.clapper</groupId>
-            <artifactId>grizzled-slf4j_${scala.short.version}</artifactId>
-        </dependency>
+      <dependency>
+        <groupId>org.scala-lang</groupId>
+        <artifactId>scala-library</artifactId>
+        <version>${scala.version}</version>
+      </dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.clapper</groupId>
+        <artifactId>grizzled-slf4j_${scala.short.version}</artifactId>
+        <version>${grizzled.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.google.inject</groupId>
+        <artifactId>guice</artifactId>
+        <version>${guice.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.twitter</groupId>
+        <artifactId>finatra-http_${scala.short.version}</artifactId>
+        <version>${finatra.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.scalatest</groupId>
+        <artifactId>scalatest_${scala.short.version}</artifactId>
+        <version>${scalatest.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${org.mockito.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.twitter</groupId>
+        <artifactId>finatra-http_${scala.short.version}</artifactId>
+        <scope>test</scope>
+        <type>test-jar</type>
+        <version>${finatra.version}</version>
+      </dependency>
     </dependencies>
+  </dependencyManagement>
 
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>net.alchim31.maven</groupId>
-                    <artifactId>scala-maven-plugin</artifactId>
-                    <version>${compiler.scala.plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>scala-compile-first</id>
-                            <phase>process-resources</phase>
-                            <goals>
-                                <goal>add-source</goal>
-                                <goal>compile</goal>
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>scala-test-compile</id>
-                            <phase>process-test-resources</phase>
-                            <goals>
-                                <goal>testCompile</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
+  <dependencies>
+    <dependency>
+      <groupId>org.clapper</groupId>
+      <artifactId>grizzled-slf4j_${scala.short.version}</artifactId>
+    </dependency>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${compiler.plugin.version}</version>
-                    <configuration>
-                        <source>${maven.compiler.source}</source>
-                        <target>${maven.compiler.target}</target>
-                    </configuration>
-                </plugin>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+  </dependencies>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${surefire.plugin.version}</version>
-                    <configuration>
-                        <skipTests>true</skipTests>
-                    </configuration>
-                </plugin>
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>net.alchim31.maven</groupId>
+          <artifactId>scala-maven-plugin</artifactId>
+          <version>${compiler.scala.plugin.version}</version>
+          <executions>
+            <execution>
+              <id>scala-compile-first</id>
+              <phase>process-resources</phase>
+              <goals>
+                <goal>add-source</goal>
+                <goal>compile</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>scala-test-compile</id>
+              <phase>process-test-resources</phase>
+              <goals>
+                <goal>testCompile</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.scalatest</groupId>
-                    <artifactId>scalatest-maven-plugin</artifactId>
-                    <version>1.0</version>
-                    <configuration>
-                        <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
-                        <junitxml>.</junitxml>
-                        <filereports>WDF TestSuite.txt</filereports>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>test</id>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                            <configuration>
-                                <suffixes>UnitTest</suffixes>
-                            </configuration>
-                        </execution>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${compiler.plugin.version}</version>
+          <configuration>
+            <source>${maven.compiler.source}</source>
+            <target>${maven.compiler.target}</target>
+          </configuration>
+        </plugin>
 
-                        <execution>
-                            <id>int-test</id>
-                            <phase>integration-test</phase>
-                            <goals>
-                                <goal>test</goal>
-                            </goals>
-                            <configuration>
-                                <suffixes>FuncTest|IntTest</suffixes>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${surefire.plugin.version}</version>
+          <configuration>
+            <skipTests>true</skipTests>
+          </configuration>
+        </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>${release.plugin.version}</version>
-                </plugin>
+        <plugin>
+          <groupId>org.scalatest</groupId>
+          <artifactId>scalatest-maven-plugin</artifactId>
+          <version>1.0</version>
+          <configuration>
+            <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+            <junitxml>.</junitxml>
+            <filereports>WDF TestSuite.txt</filereports>
+          </configuration>
+          <executions>
+            <execution>
+              <id>test</id>
+              <goals>
+                <goal>test</goal>
+              </goals>
+              <configuration>
+                <suffixes>UnitTest</suffixes>
+              </configuration>
+            </execution>
 
-            </plugins>
-        </pluginManagement>
+            <execution>
+              <id>int-test</id>
+              <phase>integration-test</phase>
+              <goals>
+                <goal>test</goal>
+              </goals>
+              <configuration>
+                <suffixes>FuncTest|IntTest</suffixes>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
 
-        <plugins>
-        </plugins>
-    </build>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>${maven.dependency.plugin.version}</version>
+        </plugin>
 
-    <repositories>
-        <repository>
-            <id>twitter-repo</id>
-            <name>twitter-repo</name>
-            <url>https://maven.twttr.com</url>
-        </repository>
-    </repositories>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${maven.release.plugin.version}</version>
+        </plugin>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>twitter-repo</id>
-            <name>twitter-repo</name>
-            <url>https://maven.twttr.com</url>
-        </pluginRepository>
-    </pluginRepositories>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>${maven.deploy.plugin.version}</version>
+        </plugin>
 
-    <profiles>
-    </profiles>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>${resources.plugin.version}</version>
+          <configuration>
+            <overwrite>true</overwrite>
+            <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>pl.project13.maven</groupId>
+          <artifactId>git-commit-id-plugin</artifactId>
+          <version>${git.commit.plugin.version}</version>
+
+          <executions>
+            <execution>
+              <goals>
+                <goal>revision</goal>
+              </goals>
+            </execution>
+          </executions>
+
+          <configuration>
+            <verbose>false</verbose>
+
+            <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+            <injectAllReactorProjects>true</injectAllReactorProjects>
+
+            <dateFormat>yyyy-MM-dd'T'HH:mm:ssZ</dateFormat>
+            <generateGitPropertiesFile>true</generateGitPropertiesFile>
+            <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+
+            <failOnNoGitDirectory>true</failOnNoGitDirectory>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+    </plugins>
+  </build>
+
+  <repositories>
+    <repository>
+      <id>twitter-repo</id>
+      <name>twitter-repo</name>
+      <url>https://maven.twttr.com</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>twitter-repo</id>
+      <name>twitter-repo</name>
+      <url>https://maven.twttr.com</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <profiles>
+  </profiles>
 
 </project>

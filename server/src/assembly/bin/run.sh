@@ -44,10 +44,20 @@ JAVA_MEM_OPTS="-Xms128M -Xmx256M "
 SERVER_OPTS=""
 JAVA_OPTS="$JAVA_OPTS $JAVA_MEM_OPTS $SERVER_JVM_OPTS"
 
+SERVER_CP="$FANG_HOME/config/:$FANG_HOME/lib/*"
+
+FINATRA_OPTS="-http.port=:18100 -admin.port=:18106"
+if [ "$DEV_MODE" = "true" ] ; then
+    echo "Running in dev mode"
+    FINATRA_OPTS="$FINATRA_OPTS -local.doc.root=$DEV_HOME/src/main/resources/client"
+else
+    FINATRA_OPTS="$FINATRA_OPTS -doc.root=/client"
+fi
+
 pushd $FANG_HOME
 if [ "$DEV_MODE" = "true" ] ; then
-    exec java $JAVA_OPTS $SERVER_OPTS -cp "$FANG_HOME/config/:$FANG_HOME/lib/*" $MAIN_CLASS -local.doc.root=$DEV_HOME/src/main/resources/client $@
+    exec java ${JAVA_OPTS} ${SERVER_OPTS} -cp ${SERVER_CP} ${MAIN_CLASS} ${FINATRA_OPTS} $@
 else
-    exec java $JAVA_OPTS $SERVER_OPTS -cp "$FANG_HOME/config/:$FANG_HOME/lib/*" $MAIN_CLASS -doc.root=/client $@
+    exec java ${JAVA_OPTS} ${SERVER_OPTS} -cp ${SERVER_CP} ${MAIN_CLASS} ${FINATRA_OPTS} $@
 fi
 
