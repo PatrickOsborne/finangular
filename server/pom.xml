@@ -9,8 +9,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>server</artifactId>
-    <name>server</name>
+    <artifactId>finangular-server</artifactId>
+    <name>finangular server</name>
     <description>Finatra Angular Server</description>
 
     <dependencies>
@@ -90,6 +90,23 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>docker</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>${spotify.docker.plugin.version}</version>
+
+                        <configuration>
+                            <skipDocker>false</skipDocker>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
 </project>

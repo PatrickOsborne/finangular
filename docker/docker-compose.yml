@@ -1,0 +1,11 @@
+version: '3'
+services:
+  finangular:
+    image: ozzysoft.finangular/finangular-server
+    restart: on-failure:3
+    ports:
+      - 18100:18100
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "10"
