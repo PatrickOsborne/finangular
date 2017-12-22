@@ -248,7 +248,7 @@
           </executions>
 
           <configuration>
-            <verbose>false</verbose>
+            <verbose>true</verbose>
 
             <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
             <injectAllReactorProjects>true</injectAllReactorProjects>
