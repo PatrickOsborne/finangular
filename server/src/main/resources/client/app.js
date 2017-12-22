@@ -40,27 +40,9 @@ appModule.controller( 'appController', function( $scope, $location, $window, res
         $scope.version = 'version lookup error';
     }
 
-    function handleLogoutSuccess( result ) {
-        console.log( 'logout(): SUCCESS' );
-        redirectHome();
-    }
-
-    function handleLogoutError( status, data ) {
-        console.log( 'logout(): ERROR' );
-        console.log( status );
-        console.log( data );
-        redirectHome();
-    }
-
-    function logout() {
-        console.log( 'logout()' );
-        restCommon.logout( handleLogoutSuccess, handleLogoutError );
-    }
-
     function init() {
         $scope.version = '';
         $scope.navigateTo = navigateTo;
-        $scope.logout = logout;
 
         restCommon.version( handleVersionSuccess, handleVersionError );
     }

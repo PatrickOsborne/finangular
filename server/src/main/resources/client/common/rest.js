@@ -38,22 +38,6 @@ restModule.factory( 'restUtils', function( $http ) {
         };
     }
 
-    function getCsrfToken() {
-        return $( "meta[name='_csrf']" ).attr( 'content' );
-    }
-
-    function getCsrfHeaderName() {
-        return $( "meta[name='_csrf_header']" ).attr( 'content' );
-    }
-
-    function addCsrfHeaders( config ) {
-        config = config || {};
-        config.headers = config.headers || {};
-        var headers = config.headers;
-        headers[getCsrfHeaderName()] = getCsrfToken();
-        return config;
-    }
-
     function doGet( url, successCallback, errorCallback ) {
         console.log( 'GET: ' + url );
         var promise = $http.get( url );
@@ -63,7 +47,6 @@ restModule.factory( 'restUtils', function( $http ) {
 
     function doPost( url, successCallback, errorCallback, data, config ) {
         console.log( 'POST: ' + url );
-        config = addCsrfHeaders( config );
         var promise = $http.post( url, data, config );
         promise.then( createHandlePostSuccess( successCallback, url ), createHandlePostError( errorCallback, url ) );
         return promise;
@@ -77,12 +60,6 @@ restModule.factory( 'restUtils', function( $http ) {
 } );
 
 restModule.factory( 'restCommon', function( restUtils ) {
-
-    function logout( successCallback, errorCallback ) {
-        var url = '/rest/logout';
-        console.log( 'logout(): ' + url );
-        return restUtils.doPost( url, successCallback, errorCallback );
-    }
 
     function version( successCallback, errorCallback ) {
         var url = '/rest/version';
@@ -101,7 +78,6 @@ restModule.factory( 'restCommon', function( restUtils ) {
     }
 
     return {
-        logout:logout,
         version:version,
         greeting:greeting
     }
