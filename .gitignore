@@ -1,13 +1,15 @@
-/target
-/.project
-/.idea
-/out
-*.iml
+target/
 
-/logs
+logs/
 *.log
 
 /tmp
 
 env.sh
 
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
